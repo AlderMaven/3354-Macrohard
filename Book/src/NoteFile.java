@@ -90,7 +90,7 @@ public class NoteFile {
 			return "No note found";
 		}
     	
-		while(reader.hasNext())
+		while(reader.hasNextLine())
 		{
 			if(reader.next().equals(">>"))
 			{
@@ -102,6 +102,7 @@ public class NoteFile {
 				}
 				else
 				{
+					reader.nextLine();
 					continue;
 				}
 			}
@@ -188,7 +189,7 @@ public class NoteFile {
 		}
     
     
-   
+   reader.close();
     
 	return false;
 

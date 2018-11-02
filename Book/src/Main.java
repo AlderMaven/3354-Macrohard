@@ -5,7 +5,7 @@ public class Main {
 			// TODO Auto-generated method stub
 			NoteFile notes = new NoteFile("test file");
 			
-			notes.addNote(546,"yeh");
+			notes.addNote(546,"yeh >> ");
 			
 			notes.addNote(132532,"Billy bear likes ice cream");
 			
