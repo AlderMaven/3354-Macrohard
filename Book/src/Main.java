@@ -29,5 +29,29 @@ public class Main {
 			
 			notes.changeNote(546, "yeeah boiiiii");
 			
+			
+			
+			TagFile tags = new TagFile("tag File");
+			
+			tags.addTag("banana");
+			
+			tags.addTag("the big cheese");
+			
+			tags.addTag("weeb trash786597243y5");
+			
+			tags.addTag("98436578294");
+			
+			
+			System.out.println(tags.getTag("banana"));
+			System.out.println(tags.getTag("the big cheese"));
+			System.out.println(tags.getTag("weeb trash 8927598"));
+			
+			tags.deleteTag("weeb trash786597243y5");
+			
+			tags.changeTag("the small cheese", "the big cheese");
+			
+			
+			
+			
 		}
 }
