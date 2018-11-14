@@ -1,3 +1,14 @@
+
+/*
+ * NoteFile class: stores book notes in a file so they can be accessed later. If 2 books with the same name are imported they will share a 
+ * NoteFile (old file will NOT be overwritten). The location of the note (a long) must be known in order to access it.
+ * 
+ * @author Saurabh Shah
+ * 
+ * @version 1
+ * 
+ */
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,29 +18,36 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-public class TagFile {
+
+public class NoteFile {
 	
     //string variables for holding book title and filepath for text file of book
     private String filePath = "";
     private String bookTitle = "";
 
-    /*
-    Constructor
-    Creates a file in default directory (needs to be changed) and adds a
-    title to the file along with 2 newlines
-    */
-    public TagFile(String book_title)
+    /**
+     *Constructor
+     *Creates a file in default directory (needs to be changed) and adds a
+     *title to the file along with 2 newlines
+     *
+     * @param book_title title of book that the NoteFile is for 
+     */
+    public NoteFile(String book_title)
     {
         bookTitle = book_title;
-        filePath = bookTitle+".dat";                //should be the filepath
+        filePath = bookTitle+"_notes.dat";                //should be the filepath
 
         try
         {
             File file = new File(filePath);
+            if(file.exists())
+            {
+            	return;
+            }
             file.createNewFile();
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("Tags for "+bookTitle+":");
+            bw.write("Notes for "+bookTitle+":");
             bw.newLine();
             bw.newLine();
             bw.write(">> ");
@@ -44,13 +62,17 @@ public class TagFile {
     }
 
 
-    /*
-    addTag function
-    adds a tag to the tag file
-    returns true is successful, returns false if not.
-    >> signals a tag
-    */
-    public boolean addTag(String newTag)
+    /**
+     *addNote function
+     *adds a note to the note file along with its location in the text
+     *returns true is successful, returns false if not.
+     *>> signals the beginning of a note, followed by a number that shows the location and then the actual text
+     *
+     * @param noteLoc location of the book in the book txt
+     * @param noteContents text that the note contains at the specific location
+     * @return true if note was added properly
+     */
+    public boolean addNote(long noteLoc, String noteContents)
     {
     	try
         {
@@ -58,7 +80,7 @@ public class TagFile {
             file.createNewFile();
             FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(newTag);
+            bw.write(noteLoc+" "+noteContents);
             bw.newLine();
             bw.newLine();
             bw.write(">> ");
@@ -74,11 +96,13 @@ public class TagFile {
     }
 
 
-    /*getTag method
+    /*getNote method
      * 
-     * returns the tag of a book if it exists
+     * returns the text of a note if provided with its location
+     * @param noteLoc location of desired note
+     * @return contents of desired note
      */
-    public String getTag(String checkTag)
+    public String getNote(long noteLoc)
     {
     	File file = new File(filePath);
     	Scanner reader;
@@ -87,20 +111,18 @@ public class TagFile {
 		} 
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
-			return "No tags found";
+			return "No note found";
 		}
     	
 		while(reader.hasNextLine())
 		{
 			if(reader.next().equals(">>"))
 			{
-					String out =  (reader.nextLine()).substring(1);
-					
-					if(out.equals(checkTag))
-					{
-						reader.close();
-						return out;
-					}
+				if(Long.parseLong(reader.next()) == noteLoc)
+				{
+					String out =  reader.nextLine();
+					reader.close();
+					return out;
 				}
 				else
 				{
@@ -108,7 +130,7 @@ public class TagFile {
 					continue;
 				}
 			}
-		
+		}
     
     reader.close();
 	return "No note found.";
@@ -117,11 +139,15 @@ public class TagFile {
     
     
     
-    /*deleteTag method
+    /**
+     * deleteNote method
      * 
-     * removes a tag from the file
+     * removes a note from the file given the note location
+     
+     * @param noteLoc location of bad note
+     * @return true if note was deleted
      */
-    public boolean deleteTag(String badTag)
+    public boolean deleteNote(long noteLoc)
     {
     	//altpath is just filepath but the file name is "file2.txt instead of "file.txt""
     	File original = new File(filePath);
@@ -161,12 +187,10 @@ public class TagFile {
 				if((nxtLn.substring(0,2)).equals(">>"))
 				{
 					String test =nxtLn.substring(3);
-					
+					int x = test.indexOf(" ") +3;
+					test = nxtLn.substring(3,x);
 					//if(Long.parseLong(nxtLn.substring(3,((nxtLn.substring(3)).indexOf(" ")))) == noteLoc)
-					if(test.equals(badTag))
-					{
-					}
-					else
+					if(Long.parseLong(test) != noteLoc)
 					{
 						bw.write(nxtLn);
 						bw.newLine();
@@ -201,17 +225,21 @@ public class TagFile {
     
     
     
-    /*
-     * changeTag method
+    /**
+     * changeNote method
      * 
-     * calls the delete tag and add tag method to edit a tagFile 
+     * calls the delete method and add method to edit a note without changing its location
+     
+     * @param noteLoc location of note to be changed
+     * @param newNote new note contents
+     * @return true if note successfully changed
      */
-    public boolean changeTag(String newTag, String oldTag)
+    public boolean changeNote(long noteLoc, String newNote)
     {
     	try
     	{
-    		this.deleteTag(oldTag);
-    		this.addTag(newTag);
+    		this.deleteNote(noteLoc);
+    		this.addNote(noteLoc, newNote);
     		return true;
     	}
     	catch(Exception e)
@@ -223,42 +251,26 @@ public class TagFile {
     
     
     
-    /* listTags
+    /**
+     *  listNotes
      * 
-     * returns a list of tags
+     * returns a list of notes in a certain range
      * 
-    */
-    public List<String> listTags()
-    {
-    	List<String> tagList = new ArrayList<String>();
-    	
-    	File file = new File(filePath);
-    	Scanner reader;
-		try {
-			reader = new Scanner(file);
-		} 
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		}
-    	
-		while(reader.hasNextLine())
-		{
-			if(reader.next().equals(">>"))
-			{
-				tagList.add(reader.nextLine());
-			}
-			else
-			{
-				reader.nextLine();
-				continue;
-			}
-		}
-		
     
-    reader.close();
+     * @param startLoc initial location to start looking for notes
+     * @param endLoc location to stop looking for notes
+     * @return returns a list of strings containing the contents of all notes within a range
+     */
+    public List<String> listNotes(long startLoc, long endLoc)
+    {
+    	List<String> noteList = new ArrayList<String>();
     	
-    	return tagList;
+    	for(long i = startLoc; i < endLoc; i++)
+    	{
+    	 noteList.add(this.getNote(i));
+    	}
+    	
+    	return noteList;
     }
     
 }
