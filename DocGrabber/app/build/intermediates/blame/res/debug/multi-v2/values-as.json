@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\AlderMavin\\Desktop\\DocGrabber\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-as\\values-as.xml",
+            "outputFile": "C:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\DocGrabber\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-as\\values-as.xml",
             "map": [
                 {
                     "source": "C:\\Users\\AlderMavin\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\0eb93cfd2041581ce180bd5671845473\\res\\values-as\\values-as.xml",

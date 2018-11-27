@@ -1,11 +1,11 @@
 #Internal package file, do not edit.
-#Thu Nov 15 11:00:56 CST 2018
-1.base=C\:\\Users\\AlderMavin\\Desktop\\DocGrabber\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
+#Tue Nov 27 14:29:12 CST 2018
+1.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\DocGrabber\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
 0.baseType=DIRECTORY
 1.baseType=DIRECTORY
 count=2
 1.set=DEX
 0.path=classes.dex
 0.set=DEX
-0.base=C\:\\Users\\AlderMavin\\Desktop\\DocGrabber\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+0.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\DocGrabber\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 1.path=classes.dex

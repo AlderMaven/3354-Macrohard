@@ -53,7 +53,7 @@ public class DocGrabber extends AppCompatActivity {
         if(successful){
             editText.setText(onSuccess);
         }
-            else{
+        else{
             editText.setText(onFail);
         }
     }
@@ -63,19 +63,19 @@ public class DocGrabber extends AppCompatActivity {
 
     boolean getDocumentFromDownload(String bookFileName, EditText editText) {
         //Get filepath to downloads
-      File path =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File path =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
-      try {
-          ContextWrapper c = new ContextWrapper(this);
-          File bookFile = new File(path, bookFileName); //Make file from ,txt/.pdf in downloads
+        try {
+            ContextWrapper c = new ContextWrapper(this);
+            File bookFile = new File(path, bookFileName); //Make file from ,txt/.pdf in downloads
             //Get File from download folder using path above
 
-          //Call the writing function
-          return writeFileToAppDirectory(bookFile, bookFileName, c, editText);
-      }
-      catch (Exception e){
+            //Call the writing function
+            return writeFileToAppDirectory(bookFile, bookFileName, c, editText);
+        }
+        catch (Exception e){
 
-          editText.setText(e.getMessage());
+            editText.setText(e.getMessage());
             return false;
         }
     }
@@ -100,7 +100,7 @@ public class DocGrabber extends AppCompatActivity {
                 // Permission is not granted
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                       readRequestInt);
+                        readRequestInt);
             }
             else {
                 //read from file in download folder and write into file in local directory

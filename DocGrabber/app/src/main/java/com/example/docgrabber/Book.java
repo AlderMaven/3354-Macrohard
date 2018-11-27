@@ -1,4 +1,4 @@
-package com.example.jack.practice;
+package com.example.docgrabber;
 
 public class Book {
     private String title;
