@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">DocGrabber</string>
-    <string name="filePathPrompt">\"Please input file name\"</string>
-    <string name="fileNameRequestPrompt">Please input file name</string>
-    <string name="FileNameRequestPrompt">Please input file name for transfer</string>
-    <string name="EnterButtonText">Enter</string>
-    <string name="EnterButton">Enter</string>
-</resources>
