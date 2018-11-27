@@ -20,7 +20,6 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-    //public LinearLayout backUp = (LinearLayout)findViewById(R.id.buttonLL);
     public BookShelf allBooks = new BookShelf();
 
     @Override
@@ -33,13 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     /** Called when the user taps the Send button */
     public void sendMessage(View view) {
-        //Intent intent = new Intent(this, DisplayMessageActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.editText);
-        //String message = editText.getText().toString();
-        //Book inBook = new Book(message);
-        //intent.putExtra(EXTRA_MESSAGE, "HOPE THIS WORKS");
-        //startActivity(intent);
-
         EditText editText = (EditText) findViewById(R.id.editText);
         String message = editText.getText().toString();
         if(message.equals("")){return;}
@@ -58,29 +50,6 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout ll = (LinearLayout)findViewById(R.id.buttonLL);
         ll.removeAllViews();
 
-        //Button testButton = new Button(this);
-        //testButton.setText("First Step");
-
-        //ll.addView(testButton);
-
-        /*//original implementation of button generation
-        final ArrayList<Book> contents = allBooks.returnBooks();
-        for(int i = 0; i < contents.size(); i++){
-            Button testButton = new Button(this);
-            testButton.setText(contents.get(i).getTitle());
-
-            testButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this,DisplayMessageActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE, "MAIN ACTIVITY LINE 73");
-                    startActivity(intent);
-                }
-            });
-
-            ll.addView(testButton);
-        }*/
-
-
         String text;
         try{
             InputStream inputStream = getAssets().open("readInBooks.txt");
@@ -91,15 +60,16 @@ public class MainActivity extends AppCompatActivity {
             String[] lines = text.split("\\r?\\n");
 
             for(int i = 0; i<lines.length;i++){
-                Book inBook = new Book(lines[i]);
+                final String newBookStr = lines[i];
+                Book inBook = new Book(newBookStr);
 
                 Button testButton = new Button(this);
-                testButton.setText(lines[i]);
+                testButton.setText(newBookStr);
 
                 testButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this,DisplayMessageActivity.class);
-                        intent.putExtra(EXTRA_MESSAGE, "DISPLAY BOOK");
+                        intent.putExtra(EXTRA_MESSAGE, newBookStr);
                         startActivity(intent);
                     }
                 });

@@ -22,23 +22,5 @@ public class DisplayMessageActivity extends AppCompatActivity {
         // Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.textView);
         textView.setText(message);
-
-
-        String text;
-        try{
-            InputStream inputStream = getAssets().open("readInBooks.txt");
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            text = new String(buffer);
-
-            String[] line = text.split("\\r?\\n");
-
-            textView.setText(line[2]);
-        } catch (IOException e) {
-            //e.printStackTrace();
-            textView.setText("NO GO");
-        }
     }
 }
