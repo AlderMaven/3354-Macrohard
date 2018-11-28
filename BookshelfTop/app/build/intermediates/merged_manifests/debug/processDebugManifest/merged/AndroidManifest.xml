@@ -32,6 +32,14 @@
             android:name="com.example.bookshelftop.DocGrabber"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.example.bookshelftop.DisplayMessageActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.bookshelftop.BookShelfActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
