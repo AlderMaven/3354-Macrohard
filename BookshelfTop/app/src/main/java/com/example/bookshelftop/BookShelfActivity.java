@@ -1,5 +1,6 @@
 package com.example.bookshelftop;
 
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -46,7 +49,10 @@ public class BookShelfActivity extends AppCompatActivity {
 
         String text;
         try{
-            InputStream inputStream = getAssets().open("readInBooks.txt");
+            ContextWrapper c = new ContextWrapper(this);
+            File bsIn = new File(c.getFilesDir(), "assets.dat");
+
+            FileInputStream inputStream = new FileInputStream(bsIn); //getAssets().open("readInBooks.txt");
             int size = inputStream.available();
             byte[] buffer = new byte[size]; //read one line
             inputStream.read(buffer);
