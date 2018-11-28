@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class top_level extends AppCompatActivity {
 
@@ -29,28 +30,14 @@ public class top_level extends AppCompatActivity {
             }
         });
 
-
-        //for docgrabber button
         Button button = findViewById(R.id.doc_button);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent = new Intent(top_level.this, DocGrabber.class);
                 startActivity(intent);
-            }
-        });
-
-
-        //for bookshelf button
-        Button book_button = findViewById(R.id.shelf_button);
-
-        book_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent1 = new Intent(top_level.this, BookShelfActivity.class);
-                startActivity(intent1);
             }
         });
 
@@ -77,5 +64,12 @@ public class top_level extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void BookshelfButton(View view) {
+        //Button bsButton = findViewById(R.id.shelf_button);
+        //bsButton.setText("Yeah Good Map");
+        Intent intent = new Intent(top_level.this,BookShelfActivity.class);
+        startActivity(intent);
     }
 }
