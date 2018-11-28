@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class top_level extends AppCompatActivity {
 
@@ -63,5 +64,12 @@ public class top_level extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void BookshelfButton(View view) {
+        //Button bsButton = findViewById(R.id.shelf_button);
+        //bsButton.setText("Yeah Good Map");
+        Intent intent = new Intent(top_level.this,BookShelfActivity.class);
+        startActivity(intent);
     }
 }
