@@ -3,6 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="FileNameRequestPrompt"> Enter the book name </string>
     <string name="EnterButton"> Import </string>
+
     <string name="edit_message"> Edit this </string>
     <string name="button_send"> Send button </string>
+
 </resources>

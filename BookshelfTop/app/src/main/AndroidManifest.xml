@@ -23,6 +23,7 @@
             android:name=".DocGrabber"
             android:label="@string/app_name" >
         </activity>
+
         <activity
             android:name=".DisplayMessageActivity"
             android:label="@string/app_name" >
@@ -31,6 +32,7 @@
             android:name=".BookShelfActivity"
             android:label="@string/app_name" >
         </activity>
+
     </application>
 
 </manifest>

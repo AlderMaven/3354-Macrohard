@@ -29,15 +29,18 @@ public class top_level extends AppCompatActivity {
             }
         });
 
+
         //for docgrabber button
         Button button = findViewById(R.id.doc_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(top_level.this, DocGrabber.class);
                 startActivity(intent);
             }
         });
+
 
         //for bookshelf button
         Button book_button = findViewById(R.id.shelf_button);
@@ -50,6 +53,7 @@ public class top_level extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+
 
     }
 
