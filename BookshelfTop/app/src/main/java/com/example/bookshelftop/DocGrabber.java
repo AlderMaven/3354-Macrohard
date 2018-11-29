@@ -1,6 +1,7 @@
 package com.example.bookshelftop;
 
 //Boilerplate
+
 import android.Manifest;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -17,10 +18,13 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.String;
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 import com.example.docgrabber.TagFile;
 import com.example.docgrabber.NoteFile;
 
@@ -29,7 +33,7 @@ import com.example.docgrabber.NoteFile;
 public class DocGrabber extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) { //Unchanged
+        protected void onCreate(Bundle savedInstanceState) { //Unchanged
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_grabber);
     }
@@ -46,45 +50,61 @@ public class DocGrabber extends AppCompatActivity {
         boolean successful = getDocumentFromDownload(bookFileName, editText);
 
         //Just for returning messages
-        String onSuccess = "File Successfully Added";
+        String onSuccess = "File imported successfully";
         String onFail = "Could not import file";
+        String assetsFileName = "assets.dat";
+        String appendName = bookFileName+ "\n";
+        String assetError = "Error in adding file name to assets.dat";
+
 
         //Print whether add was successful or not
-        if(successful){
-            editText.setText(onSuccess);
-        }
-            else{
+        if (successful) { //if successful add book's file name to assets.dat
+            ContextWrapper c = new ContextWrapper(this);
+            File assetsFile = new File(c.getFilesDir(), assetsFileName);
+
+            try{
+                FileOutputStream assetsWriter = new FileOutputStream(assetsFile, false);
+                byte[] tempArray = appendName.getBytes();
+
+                assetsWriter.write(tempArray);
+
+
+                editText.setText(onSuccess);
+            }
+            catch(Exception e){
+                editText.setText(assetError);
+            }
+
+
+        } else {
             editText.setText(onFail);
         }
     }
 
 
-
-
     boolean getDocumentFromDownload(String bookFileName, EditText editText) {
         //Get filepath to downloads
-      File path =  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
-      try {
-          ContextWrapper c = new ContextWrapper(this);
-          File bookFile = new File(path, bookFileName); //Make file from ,txt/.pdf in downloads
+        try {
+            ContextWrapper c = new ContextWrapper(getApplicationContext());
+            File bookFile = new File(path, bookFileName); //Make file from ,txt/.pdf in downloads
             //Get File from download folder using path above
 
-          //Call the writing function
-          return writeFileToAppDirectory(bookFile, bookFileName, c, editText);
-      }
-      catch (Exception e){
+            //Call the writing function
+            return writeFileToAppDirectory(bookFile, bookFileName, c, editText);
+        } catch (Exception e) {
 
-          editText.setText(e.getMessage());
+            editText.setText(e.getMessage() + "1");
             return false;
         }
     }
 
-    boolean writeFileToAppDirectory(File bookFile, String bookFileName, Context c, EditText editText){
+    boolean writeFileToAppDirectory(File bookFile, String bookFileName, Context c, EditText editText) {
         try {
             File localBook = new File(c.getFilesDir(), bookFileName); //For creating bookFile in local directory
-            NoteFile notes =  new NoteFile(bookFile); //This will create a file for notes in the local directory if it does not exist
-            TagFile tags =  new TagFile(bookFile); //This will create a file for tags in the local directory if it does not exist
+            NoteFile notes = new NoteFile(bookFile); //This will create a file for notes in the local directory if it does not exist
+            TagFile tags = new TagFile(bookFile); //This will create a file for tags in the local directory if it does not exist
 
             //Reader and Writer to write book into directory
             FileReader oldBookReadIn = new FileReader(bookFile);
@@ -100,9 +120,11 @@ public class DocGrabber extends AppCompatActivity {
                 // Permission is not granted
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                       readRequestInt);
-            }
-            else {
+                        readRequestInt);
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        readRequestInt);
+            } else {
                 //read from file in download folder and write into file in local directory
                 while (oldBookReadIn.read(buffer) != -1) {
                     localBookWrite.write(buffer);
@@ -110,10 +132,9 @@ public class DocGrabber extends AppCompatActivity {
                 localBookWrite.write(buffer);
             }
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
-            editText.setText(e.getMessage());
+            editText.setText(e.getMessage()+ "2");
             return false;
         }
         return true;
@@ -124,10 +145,9 @@ public class DocGrabber extends AppCompatActivity {
     File readFileFromDirectory(String name) {
         ContextWrapper c = new ContextWrapper(this);
         try {
-            File localFile = new File(c.getFilesDir()+name);
+            File localFile = new File(c.getFilesDir() + name);
             return localFile;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
