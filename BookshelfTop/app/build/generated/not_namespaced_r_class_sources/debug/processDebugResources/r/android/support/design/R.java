@@ -1151,8 +1151,8 @@ public final class R {
         public static final int unlabeled = 0x7f0800cb;
         public static final int up = 0x7f0800cc;
         public static final int view_offset_helper = 0x7f0800ce;
-        public static final int visible = 0x7f0800cf;
-        public static final int wrap_content = 0x7f0800d2;
+        public static final int visible = 0x7f0800d0;
+        public static final int wrap_content = 0x7f0800d3;
     }
     public static final class integer {
         private integer() {}
@@ -1234,10 +1234,10 @@ public final class R {
         public static final int notification_template_icon_group = 0x7f0b0036;
         public static final int notification_template_part_chronometer = 0x7f0b0037;
         public static final int notification_template_part_time = 0x7f0b0038;
-        public static final int select_dialog_item_material = 0x7f0b0039;
-        public static final int select_dialog_multichoice_material = 0x7f0b003a;
-        public static final int select_dialog_singlechoice_material = 0x7f0b003b;
-        public static final int support_simple_spinner_dropdown_item = 0x7f0b003c;
+        public static final int select_dialog_item_material = 0x7f0b003a;
+        public static final int select_dialog_multichoice_material = 0x7f0b003b;
+        public static final int select_dialog_singlechoice_material = 0x7f0b003c;
+        public static final int support_simple_spinner_dropdown_item = 0x7f0b003d;
     }
     public static final class string {
         private string() {}

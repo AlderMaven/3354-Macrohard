@@ -45,39 +45,81 @@ public class DocGrabber extends AppCompatActivity {
         //Grab file name from textline
         EditText editText = (EditText) findViewById(R.id.FileNameBox);
         String bookFileName = editText.getText().toString();
-
-        //Call function and if add was successful will return true
-        boolean successful = getDocumentFromDownload(bookFileName, editText);
-
+        boolean notImported = false;
+        boolean notInvalid = false;
         //Just for returning messages
         String onSuccess = "File imported successfully";
         String onFail = "Could not import file";
         String assetsFileName = "assets.dat";
         String appendName = bookFileName+ "\n";
         String assetError = "Error in adding file name to assets.dat";
+        String onAlreadyImported = "Book was already imported";
+        String onInvalid = "Not allowed to import file with that name";
 
 
-        //Print whether add was successful or not
-        if (successful) { //if successful add book's file name to assets.dat
-            ContextWrapper c = new ContextWrapper(this);
-            File assetsFile = new File(c.getFilesDir(), assetsFileName);
+        ContextWrapper c = new ContextWrapper(this);
+        File bsIn = new File(c.getFilesDir(), "assets.dat");
+        try {
 
-            try{
-                FileOutputStream assetsWriter = new FileOutputStream(assetsFile, false);
-                byte[] tempArray = appendName.getBytes();
+            FileInputStream inputStream = new FileInputStream(bsIn); //getAssets().open("readInBooks.txt");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size]; //read one line
+            inputStream.read(buffer);
+            String text = new String(buffer);
+            String[] lines = text.split("\\r?\\n");
+            notImported = true;
+            for(int i =0; i<lines.length;i++) {
+                String bookInList = lines[i];
+                if(bookFileName.equals(bookInList)) {
+                    notImported = false;
+                    editText.setText(onAlreadyImported);
+                    break;
+                }
+                else {
 
-                assetsWriter.write(tempArray);
+                }
 
-
-                editText.setText(onSuccess);
             }
-            catch(Exception e){
-                editText.setText(assetError);
+
+        }
+        catch(Exception e) {
+
+        }
+        if(bookFileName.equals(assetsFileName)) {
+            notInvalid = false;
+            editText.setText(onInvalid);
+        }
+        else {
+            notInvalid = true;
+        }
+        if(notInvalid && notImported) {
+            //Call function and if add was successful will return true
+            boolean successful = getDocumentFromDownload(bookFileName, editText);
+
+
+            //Print whether add was successful or not
+            if (successful) { //if successful add book's file name to assets.dat
+                File assetsFile = new File(c.getFilesDir(), assetsFileName);
+
+                try {
+                    FileOutputStream assetsWriter = new FileOutputStream(assetsFile, true);
+                    byte[] tempArray = appendName.getBytes();
+
+                    assetsWriter.write(tempArray);
+
+
+                    editText.setText(onSuccess);
+                } catch (Exception e) {
+                    editText.setText(assetError);
+                }
+
+
+            } else {
+                editText.setText(onFail);
             }
+        }
+        else{
 
-
-        } else {
-            editText.setText(onFail);
         }
     }
 
@@ -95,7 +137,7 @@ public class DocGrabber extends AppCompatActivity {
             return writeFileToAppDirectory(bookFile, bookFileName, c, editText);
         } catch (Exception e) {
 
-            editText.setText(e.getMessage() + "1");
+            editText.setText(e.getMessage());
             return false;
         }
     }
@@ -134,7 +176,7 @@ public class DocGrabber extends AppCompatActivity {
 
         } catch (Exception e) {
 
-            editText.setText(e.getMessage()+ "2");
+            editText.setText(e.getMessage());
             return false;
         }
         return true;
