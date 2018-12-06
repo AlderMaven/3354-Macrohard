@@ -1203,6 +1203,7 @@ id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
 id text
 id text2
+id textHolder
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
@@ -1230,7 +1231,6 @@ id unlabeled
 id up
 id useLogo
 id view_offset_helper
-id view_pager
 id visible
 id withText
 id wrap
