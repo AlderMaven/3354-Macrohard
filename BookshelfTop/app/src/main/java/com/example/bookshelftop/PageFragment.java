@@ -20,8 +20,6 @@ public class PageFragment extends android.support.v4.app.Fragment {
         // Required empty public constructor
     }
 
-
-
     public View onCreate(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.page_fragment_layout, container,false);
