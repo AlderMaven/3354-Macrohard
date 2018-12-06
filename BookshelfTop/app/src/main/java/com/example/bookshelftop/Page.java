@@ -1,13 +1,15 @@
 package com.example.bookshelftop;
 import java.io.FileNotFoundException;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
 
 public class Page {
     private final int LINES = 21;
     private final int CHARS = 32;
-
+    private long position = 0;
     private long startingPosition;
     private long endPosition;
     private StringBuilder page;
@@ -25,11 +27,11 @@ public class Page {
     }
 
     private int pageNumber;
-    private RandomAccessFile fileReader;
+    private FileReader fileReader;
 
     Page(File book){
         try {
-            this.fileReader = new RandomAccessFile(book, "r");
+            this.fileReader = new FileReader(book);
         }
         catch(FileNotFoundException e){
             e.printStackTrace();
@@ -42,17 +44,12 @@ public class Page {
         createPageFormat();
 
     }
-    Page(RandomAccessFile book, long startingPosition, int pageNumber, StringBuilder prevPage){
+    Page(FileReader book, long startingPosition, int pageNumber, StringBuilder prevPage){
 
         this.fileReader = book;
 
         this.startingPosition = startingPosition;
-        try {
-            fileReader.getChannel().position(startingPosition+1);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
         this.pageNumber = pageNumber;
         this.previousPage = prevPage;
         this.page = new StringBuilder();
@@ -63,10 +60,13 @@ public class Page {
     private void createPageFormat() {
         try {
             char currentChar = 0;
+
             for(int i = 0; i < LINES; i++) {
                 for(int j = 0; j < CHARS; j++) {
-                    long currentPosition = fileReader.getFilePointer();
+                    fileReader.mark(5);
+
                     currentChar = (char)fileReader.read();
+                    position++;
                     page.append(currentChar);
                     if(Character.compare(currentChar, '\n') == 0) {
                         break;
@@ -77,11 +77,12 @@ public class Page {
                     if(j == CHARS-1){
                         char lastChar = currentChar;
                         if(!Character.isWhitespace(lastChar)) {
-                            char extraChar = (char)fileReader.readChar();
+                            char extraChar = (char)fileReader.read();
                             if(!Character.isWhitespace(extraChar)) {
                                 page.append('-');
 
-                                fileReader.getChannel().position(currentPosition+1);
+                                fileReader.reset();
+                                fileReader.skip(1);
 
                             }
                         }
@@ -93,7 +94,7 @@ public class Page {
                     page.append('\n');
                 }
             }
-            endPosition = fileReader.getFilePointer();
+            fileReader.mark(32);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,7 +109,7 @@ public class Page {
         return pageNumber;
     }
 
-    public RandomAccessFile getFileReader() {
+    public FileReader getFileReader() {
         return fileReader;
     }
 

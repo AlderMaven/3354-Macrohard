@@ -1,5 +1,6 @@
 package com.example.bookshelftop;
 import java.io.File;
+import java.io.FileReader;
 import java.io.RandomAccessFile;
 
 public class PageNavigator {
@@ -11,9 +12,18 @@ public class PageNavigator {
 
     }
     public boolean isLastPage() {
-        RandomAccessFile fileReader = currentPage.getFileReader();
+        FileReader fileReader = currentPage.getFileReader();
+
         try {
-            return fileReader.getFilePointer() == fileReader.length();
+            fileReader.mark(2);
+            boolean end =  fileReader.read() == -1;
+            if(end){
+                return true;
+            }
+            else{
+                fileReader.reset();
+                return false;
+            }
         }
         catch(java.io.IOException e){
             e.printStackTrace();
@@ -28,7 +38,6 @@ public class PageNavigator {
                     currentPage.getPageNumber(), currentPage.getPage());
 
         }
-
     }
 
     public String displayCurrentPage(){

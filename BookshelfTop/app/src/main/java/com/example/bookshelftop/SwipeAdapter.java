@@ -25,11 +25,9 @@ public class SwipeAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount(){
-
         if(!pageNavigator.isLastPage()) {
             return count + 1;
-        }
-        else{
+        }else{
             return count;
         }
     }
