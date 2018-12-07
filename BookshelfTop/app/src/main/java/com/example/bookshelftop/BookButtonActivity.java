@@ -1,3 +1,4 @@
+
 package com.example.bookshelftop;
 
 import android.content.ContextWrapper;
@@ -25,6 +26,14 @@ public class BookButtonActivity extends FragmentActivity {
     RandomAccessFile bReader;
     int currentLoc = 0; //position of cursor in chars
 
+    /**
+     *Creates the textview object, randomaccessfile, and gets the desired file from the internal directory
+     *
+     * Also calls the make and view page method
+     *
+     * @author Brandon Barnes and Saurabh Shah
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +79,12 @@ public class BookButtonActivity extends FragmentActivity {
         */
     }
 
-    //for advancing in book
+
     private View.OnClickListener goToNextPage = new View.OnClickListener() {
+        /**
+         * for advancing in book
+         * @param v View object
+         */
         public void onClick(View v) {
            try {
                 if (currentLoc < bReader.length())
@@ -83,7 +96,10 @@ public class BookButtonActivity extends FragmentActivity {
         }
     };
 
-    //for back button
+    /**
+     * for back button
+     * @param view View object
+     */
     public void goToPrevPage(View view){
 
             int prevPosition = (currentLoc - (1500)); //Go back 2*length of page
@@ -93,7 +109,15 @@ public class BookButtonActivity extends FragmentActivity {
         }
 
 
-
+    /**
+     * Creates pages and sends them to the textview object for displaying on the screen
+     * Prints a set number of characters at a time
+     *
+     * @param bReader randomaccessfile used to read text from file
+     * @param startLoc Tells the file reader where to start reading from the file
+     * @param text_holder textView object that displays text to the user
+     * @return returns the current position of the cursor
+     */
     int make_and_viewPage(RandomAccessFile bReader, int startLoc, TextView text_holder)  //makes the pages
     {
         String pageText = "";
