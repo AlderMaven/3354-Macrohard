@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\android_studio_projects\\3354-Macrohard current\\BookshelfTop\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "E:\\android_studio_projects\\BookshelfTop\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Saurabh\\.gradle\\caches\\transforms-1\\files-1.1\\constraint-layout-1.1.3.aar\\59af8fa1d3551e85556dba5232110f24\\res\\values\\values.xml",
@@ -61,20 +61,20 @@
                     }
                 },
                 {
-                    "source": "E:\\android_studio_projects\\3354-Macrohard current\\BookshelfTop\\app\\src\\main\\res\\values\\strings.xml",
+                    "source": "E:\\android_studio_projects\\BookshelfTop\\app\\src\\main\\res\\values\\dimens.xml",
                     "from": {
-                        "startLines": "4,3,2,1,6,5",
-                        "startColumns": "4,4,4,4,4,4",
-                        "startOffsets": "195,122,68,17,303,245",
-                        "endColumns": "48,71,52,49,44,56",
-                        "endOffsets": "239,189,116,62,343,297"
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endColumns": "41",
+                        "endOffsets": "54"
                     },
                     "to": {
-                        "startLines": "2209,2210,2250,2251,2254,2257",
-                        "startColumns": "4,4,4,4,4,4",
-                        "startOffsets": "135109,135158,137988,138041,138357,138593",
-                        "endColumns": "48,71,52,49,44,56",
-                        "endOffsets": "135153,135225,138036,138086,138397,138645"
+                        "startLines": "2071",
+                        "startColumns": "4",
+                        "startOffsets": "126990",
+                        "endColumns": "41",
+                        "endOffsets": "127027"
                     }
                 },
                 {
@@ -97,20 +97,20 @@
                     }
                 },
                 {
-                    "source": "E:\\android_studio_projects\\3354-Macrohard current\\BookshelfTop\\app\\src\\main\\res\\values\\dimens.xml",
+                    "source": "E:\\android_studio_projects\\BookshelfTop\\app\\src\\main\\res\\values\\strings.xml",
                     "from": {
-                        "startLines": "1",
-                        "startColumns": "4",
-                        "startOffsets": "17",
-                        "endColumns": "41",
-                        "endOffsets": "54"
+                        "startLines": "4,3,2,1,6,5",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "195,122,68,17,303,245",
+                        "endColumns": "48,71,52,49,44,56",
+                        "endOffsets": "239,189,116,62,343,297"
                     },
                     "to": {
-                        "startLines": "2071",
-                        "startColumns": "4",
-                        "startOffsets": "126990",
-                        "endColumns": "41",
-                        "endOffsets": "127027"
+                        "startLines": "2209,2210,2250,2251,2254,2257",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "135109,135158,137988,138041,138357,138593",
+                        "endColumns": "48,71,52,49,44,56",
+                        "endOffsets": "135153,135225,138036,138086,138397,138645"
                     }
                 },
                 {
@@ -133,24 +133,7 @@
                     }
                 },
                 {
-                    "source": "E:\\android_studio_projects\\3354-Macrohard current\\BookshelfTop\\app\\src\\main\\res\\values\\colors.xml",
-                    "from": {
-                        "startLines": "4,2,3",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "157,57,105",
-                        "endColumns": "45,46,50",
-                        "endOffsets": "198,99,151"
-                    },
-                    "to": {
-                        "startLines": "192,193,194",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "9973,10019,10066",
-                        "endColumns": "45,46,50",
-                        "endOffsets": "10014,10061,10112"
-                    }
-                },
-                {
-                    "source": "E:\\android_studio_projects\\3354-Macrohard current\\BookshelfTop\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "E:\\android_studio_projects\\BookshelfTop\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
                         "startLines": "3,15,10,17",
                         "startColumns": "4,4,4,4",
@@ -185,6 +168,23 @@
                         "endLines": "24,1086,1175,4616",
                         "endColumns": "60,24,24,12",
                         "endOffsets": "1257,66669,71880,295253"
+                    }
+                },
+                {
+                    "source": "E:\\android_studio_projects\\BookshelfTop\\app\\src\\main\\res\\values\\colors.xml",
+                    "from": {
+                        "startLines": "4,2,3",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "157,57,105",
+                        "endColumns": "45,46,50",
+                        "endOffsets": "198,99,151"
+                    },
+                    "to": {
+                        "startLines": "192,193,194",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "9973,10019,10066",
+                        "endColumns": "45,46,50",
+                        "endOffsets": "10014,10061,10112"
                     }
                 },
                 {

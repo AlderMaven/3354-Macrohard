@@ -10,15 +10,20 @@ import android.support.v4.app.FragmentActivity;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.RandomAccessFile;
 
 public class BookButtonActivity extends FragmentActivity {
+	int charsperpage = 1500;
     ViewPager viewPager;
     TextView text_holder;
-    FileReader bReader;
+    Button back_button;
+    RandomAccessFile bReader;
+    int currentLoc = -1; //position in chars
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +37,20 @@ public class BookButtonActivity extends FragmentActivity {
         //ss stuff-----------------------------------------
         text_holder = (TextView)findViewById(R.id.textHolder);  //write text to this
         text_holder.setOnClickListener(goToNextPage);
+        back_button.setOnClickListener(goToPrevPage);
+
         ContextWrapper c = new ContextWrapper(this);
         File bFile = new File(c.getFilesDir(), message);       //file with text (hopefully)
 
         try {
-            bReader = new FileReader(bFile);
+            bReader = new RandomAccessFile(bFile, "rw");
         }
         catch(Exception e)
         {
             text_holder.setText("File not found");
         }
 
-        make_and_viewPage(bReader, 0, text_holder);
+        currentLoc = make_and_viewPage(bReader, currentLoc, text_holder);
 
 
         /*
@@ -64,23 +71,40 @@ public class BookButtonActivity extends FragmentActivity {
         */
     }
 
+    //for textview
     private View.OnClickListener goToNextPage = new View.OnClickListener() {
         public void onClick(View v) {
-            make_and_viewPage(bReader, 0, text_holder);
+            currentLoc = make_and_viewPage(bReader, currentLoc, text_holder);
         }
     };
 
-    void make_and_viewPage(FileReader bReader, int startLoc, TextView text_holder)
+    //for button
+    private View.OnClickListener goToPrevPage = new View.OnClickListener() {
+        public void onClick(View v) {
+            int prevPosition = currentLoc - (2*charsperpage);
+            currentLoc = make_and_viewPage(bReader, prevPosition, text_holder);
+        }
+    };
+
+    int make_and_viewPage(RandomAccessFile bReader, int startLoc, TextView text_holder)  //makes the pages
     {
         String pageText = "";
         int temp = -1;
+        int position = -1;
+
         try {
-            for (int pos = 0; pos < 1500; pos++)  //reads 100 characters
+            bReader.seek((long)(2*startLoc));
+            for (int pos = startLoc; pos < (startLoc + charsperpage); pos++)  //reads 1500 characters
             {
-                if ((temp = bReader.read()) != -1) {  //temp is int, need to cast to a char to use
+                if ((temp = bReader.readChar()) != -1) {  //temp is int, need to cast to a char to use
 
                     pageText = pageText + (char)temp;
                 }
+                else      //preventing infinite loop
+                {
+                    break;
+                }
+                position = pos;    //stores latest position to be returned
             }
         }
         catch(Exception e)
@@ -89,6 +113,7 @@ public class BookButtonActivity extends FragmentActivity {
         }
 
         text_holder.setText(pageText);
+        return position;
     }
 
 

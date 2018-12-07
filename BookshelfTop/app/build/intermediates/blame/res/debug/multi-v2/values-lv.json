@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\android_studio_projects\\3354-Macrohard current\\BookshelfTop\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-lv\\values-lv.xml",
+            "outputFile": "E:\\android_studio_projects\\BookshelfTop\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-lv\\values-lv.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Saurabh\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\9c5287c56897bbc1c2feb3bbb19d69af\\res\\values-lv\\values-lv.xml",

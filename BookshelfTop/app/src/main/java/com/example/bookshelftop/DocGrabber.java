@@ -57,7 +57,7 @@ public class DocGrabber extends AppCompatActivity {
 
         //Grab file name from textline
         EditText editText = (EditText) findViewById(R.id.FileNameBox);
-        String bookFileName = editText.getText().toString();
+        String bookFileName = (editText.getText()).toString();
 
 
         boolean notImported = false;
