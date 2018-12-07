@@ -11,6 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ *
+ * Creates the page fragment for the page display, it is changed by the swiping
+ *@author Carl Schneider
+ *
+ */
 
 public class PageFragment extends android.support.v4.app.Fragment {
     TextView textView;

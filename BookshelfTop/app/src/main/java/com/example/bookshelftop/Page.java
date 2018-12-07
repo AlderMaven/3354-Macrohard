@@ -6,10 +6,19 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 
+/**
+ * Creates the string and for each page that is going to be displayed and formats it
+ *
+ *
+ * @author Carl Schneider
+ *
+ *
+ */
+
 public class Page {
     private final int LINES = 21;
     private final int CHARS = 32;
-    private long position = 0;
+
     private long startingPosition;
     private long endPosition;
     private StringBuilder page;
@@ -27,11 +36,16 @@ public class Page {
     }
 
     private int pageNumber;
-    private FileReader fileReader;
+    private RandomAccessFile fileReader;
 
+    /**
+     * Constructor, builds the a Page object
+     *
+     * @param book  a file that holds the text in the page
+     */
     Page(File book){
         try {
-            this.fileReader = new FileReader(book);
+            this.fileReader = new RandomAccessFile(book, "r");
         }
         catch(FileNotFoundException e){
             e.printStackTrace();
@@ -44,7 +58,16 @@ public class Page {
         createPageFormat();
 
     }
-    Page(FileReader book, long startingPosition, int pageNumber, StringBuilder prevPage){
+
+    /**
+     * Constructor
+     *
+     * @param book                  a RandomAccessFile that reads the text of the book
+     * @param startingPosition      the position that the access file starts reading from, usually the last position of the previous page
+     * @param pageNumber            the page number of the page being built
+     * @param prevPage              the stringbuilder of that held the string of the previous page
+     */
+    Page(RandomAccessFile book, long startingPosition, int pageNumber, StringBuilder prevPage){
 
         this.fileReader = book;
 
@@ -57,32 +80,35 @@ public class Page {
 
     }
 
+    /**
+     * Creates the page how it should look on the screen, with 32 characters for
+     *      each of the 21 lines
+     */
     private void createPageFormat() {
         try {
             char currentChar = 0;
 
-            for(int i = 0; i < LINES; i++) {
-                for(int j = 0; j < CHARS; j++) {
-                    fileReader.mark(5);
+            for(int i = 0; i < LINES; i++) {        // Loops for 21 lines
+                for(int j = 0; j < CHARS; j++) {    // loops for 32 characters
+                    long position = fileReader.getFilePointer();
 
                     currentChar = (char)fileReader.read();
                     position++;
-                    page.append(currentChar);
-                    if(Character.compare(currentChar, '\n') == 0) {
+                    page.append(currentChar);       // Adds the character to string
+                    if(Character.compare(currentChar, '\n') == 0) { // Ends the line at a newline
                         break;
                     }
-                    if(Character.compare(currentChar, '\t') == 0) {
+                    if(Character.compare(currentChar, '\t') == 0) { //Accounts for extra space given by tab
                         j += 7;
                     }
-                    if(j == CHARS-1){
+                    if(j == CHARS-1){   // Checks the last word of the line and correctly formats it so words are not cut off
                         char lastChar = currentChar;
                         if(!Character.isWhitespace(lastChar)) {
                             char extraChar = (char)fileReader.read();
                             if(!Character.isWhitespace(extraChar)) {
                                 page.append('-');
 
-                                fileReader.reset();
-                                fileReader.skip(1);
+                                fileReader.getChannel().position(position+1);
 
                             }
                         }
@@ -94,22 +120,20 @@ public class Page {
                     page.append('\n');
                 }
             }
-            fileReader.mark(32);
+            endPosition= fileReader.getFilePointer();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public long getStartingPosition() {
-        return startingPosition;
-    }
+
 
     public int getPageNumber() {
         return pageNumber;
     }
 
-    public FileReader getFileReader() {
+    public RandomAccessFile getFileReader() {
         return fileReader;
     }
 
