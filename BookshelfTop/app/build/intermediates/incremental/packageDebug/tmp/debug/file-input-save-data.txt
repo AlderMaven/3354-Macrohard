@@ -1,19 +1,19 @@
 #Internal package file, do not edit.
-#Thu Dec 06 23:44:27 CST 2018
+#Fri Dec 07 15:03:43 CST 2018
 4.path=classes.dex
-8.set=DEX
+8.set=ASSET
 6.path=classes.dex
 0.baseType=DIRECTORY
-10.path=readInBooks.txt
+10.path=classes.dex
 5.baseType=DIRECTORY
-1.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\11
-8.path=classes.dex
-3.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\20
+1.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\21
+8.path=readInBooks.txt
+3.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\12
 4.set=DEX
-5.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\19
-7.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\18
-11.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\13
-9.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\16
+5.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\14
+7.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\16
+11.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\20
+9.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\19
 1.baseType=DIRECTORY
 11.set=DEX
 0.set=DEX
@@ -25,20 +25,20 @@
 1.path=classes.dex
 7.baseType=DIRECTORY
 3.path=classes.dex
-10.set=ASSET
+10.set=DEX
 5.path=classes.dex
-0.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\14
+0.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\11
 7.path=classes.dex
 11.path=classes.dex
 9.path=classes.dex
 6.set=DEX
-2.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\12
+2.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\13
 11.baseType=DIRECTORY
-4.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\21
+4.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\15
 3.baseType=DIRECTORY
-6.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\17
-10.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
-8.base=C\:\\Users\\AlderMavin\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\15
+6.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\17
+10.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\18
+8.base=C\:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
 2.set=DEX
 8.baseType=DIRECTORY
 9.set=DEX

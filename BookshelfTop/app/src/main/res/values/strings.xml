@@ -4,5 +4,5 @@
     <string name="FileNameRequestPrompt"> Enter the book name </string>
     <string name="EnterButton"> Import </string>
     <string name="edit_message">Enter a Message</string>
-    <string name="button_send">Send</string>
+    <string name="button_send">Search</string>
 </resources>

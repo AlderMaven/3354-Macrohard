@@ -6,6 +6,7 @@ public class BookShelf {
     private Book root;
 
     public BookShelf(){root = new Book();}
+    public BookShelf(Book r){root = r;}
 
     //insert------------------------------------------------------------------------------------------------------------------------------------------------------
     public boolean insert(Book in){

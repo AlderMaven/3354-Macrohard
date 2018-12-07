@@ -28,18 +28,32 @@ public class BookShelfActivity extends AppCompatActivity {
     }
 
     /** Called when the user taps the Send button */
-    public void sendMessage(View view) {
+    public int search(View view) {
         EditText editText = (EditText) findViewById(R.id.editText);
         String message = editText.getText().toString();
-        if(message.equals("")){return;}
-
-        Book inBook = new Book(message);
-        allBooks.insert(inBook);
+        int resultCount = -1;
+        if(message.equals("")){
+            this.displayAllBooks();
+            return resultCount;
+        }
 
         //this was where displayAllBooks was originally
         this.displayAllBooks();
 
+        LinearLayout ll = (LinearLayout)findViewById(R.id.buttonLL);
+        final int childCount = ll.getChildCount();
+        for(int i = 0; i < childCount; i++){
+            Button b = (Button) ll.getChildAt(i);
+            String buttonText = b.getText().toString();
+            buttonText = buttonText.toLowerCase();
+            if(!buttonText.contains(message.toLowerCase())){
+                b.setVisibility(View.GONE);
+            }
+            else{resultCount++;}
+        }
+
         editText.setText("");
+        return resultCount;
 
     }
 
