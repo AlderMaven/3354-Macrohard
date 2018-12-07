@@ -18,12 +18,12 @@ import java.io.FileReader;
 import java.io.RandomAccessFile;
 
 public class BookButtonActivity extends FragmentActivity {
-	int charsperpage = 1500;
+
     ViewPager viewPager;
     TextView text_holder;
     Button back_button;
     RandomAccessFile bReader;
-    int currentLoc = -1; //position in chars
+    int currentLoc = 500; //position in chars
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +35,17 @@ public class BookButtonActivity extends FragmentActivity {
         String message = intent.getStringExtra(BookShelfActivity.EXTRA_MESSAGE);
 
         //ss stuff-----------------------------------------
-        text_holder = (TextView)findViewById(R.id.textHolder);  //write text to this
+        text_holder = (TextView) findViewById(R.id.textHolder);  //write text to this
+        //back_button.setOnClickListener(goToPrevPage);
         text_holder.setOnClickListener(goToNextPage);
-        back_button.setOnClickListener(goToPrevPage);
+
 
         ContextWrapper c = new ContextWrapper(this);
         File bFile = new File(c.getFilesDir(), message);       //file with text (hopefully)
 
         try {
             bReader = new RandomAccessFile(bFile, "rw");
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             text_holder.setText("File not found");
         }
 
@@ -74,49 +73,56 @@ public class BookButtonActivity extends FragmentActivity {
     //for textview
     private View.OnClickListener goToNextPage = new View.OnClickListener() {
         public void onClick(View v) {
-            currentLoc = make_and_viewPage(bReader, currentLoc, text_holder);
+           try {
+                if (currentLoc < bReader.length())
+                    currentLoc = make_and_viewPage(bReader, currentLoc, text_holder);
+            }
+            catch(Exception e){
+
+            }
         }
     };
 
     //for button
+
     private View.OnClickListener goToPrevPage = new View.OnClickListener() {
         public void onClick(View v) {
-            int prevPosition = currentLoc - (2*charsperpage);
-            currentLoc = make_and_viewPage(bReader, prevPosition, text_holder);
+            int prevPosition = (currentLoc - (500));
+            if (prevPosition > 0) {
+                currentLoc = make_and_viewPage(bReader, prevPosition, text_holder);
+            }
         }
+
     };
 
     int make_and_viewPage(RandomAccessFile bReader, int startLoc, TextView text_holder)  //makes the pages
     {
         String pageText = "";
-        int temp = -1;
-        int position = -1;
+        byte[] temp = new byte[2];
+        int position;
+        int pos = 0;
+        String tempString;
 
         try {
-            bReader.seek((long)(2*startLoc));
-            for (int pos = startLoc; pos < (startLoc + charsperpage); pos++)  //reads 1500 characters
+            bReader.seek((long) (startLoc));
+            for (pos = startLoc*2; pos < startLoc*2 + 1000 && (pos/2) < bReader.length(); pos += 2)  //reads X characters
             {
-                if ((temp = bReader.readChar()) != -1) {  //temp is int, need to cast to a char to use
+                temp[0] = bReader.readByte();
+                temp[1] = bReader.readByte();
 
-                    pageText = pageText + (char)temp;
-                }
-                else      //preventing infinite loop
-                {
-                    break;
-                }
-                position = pos;    //stores latest position to be returned
+                tempString = new String(temp);
+
+                pageText = pageText + tempString;
+
+
+                //stores latest position to be returned
             }
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             text_holder.setText("IO exception");
         }
-
+        position = pos/2;
         text_holder.setText(pageText);
         return position;
     }
-
-
-
 
 }

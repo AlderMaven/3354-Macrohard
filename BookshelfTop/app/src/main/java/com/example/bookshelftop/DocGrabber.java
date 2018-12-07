@@ -24,6 +24,7 @@ import java.io.FileWriter;
 import java.lang.String;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 
 import com.example.docgrabber.TagFile;
 import com.example.docgrabber.NoteFile;
@@ -33,25 +34,25 @@ import com.example.docgrabber.NoteFile;
 public class DocGrabber extends AppCompatActivity {
 
     @Override
-        protected void onCreate(Bundle savedInstanceState) { //Unchanged
+    protected void onCreate(Bundle savedInstanceState) { //Unchanged
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doc_grabber);
     }
 
     //Is called when focus leaves textbox
     /**
-    * 1st call that resolves for importing a book
-    * which will attempt to make a copy of a file from the downloads directory and place it into the app's local directory
-    * If successful it will also add that book's file name to the assets.dat file in the local directory
-    *
-    *
-    * @param view the view of the current text model
-    *
-    *
-    * @author Brandon Barnes
-    *
-    *
-    */
+     * 1st call that resolves for importing a book
+     * which will attempt to make a copy of a file from the downloads directory and place it into the app's local directory
+     * If successful it will also add that book's file name to the assets.dat file in the local directory
+     *
+     *
+     * @param view the view of the current text model
+     *
+     *
+     * @author Brandon Barnes
+     *
+     *
+     */
     public void onEnter(View view) {
         Intent intent = new Intent(this, DocGrabber.class); //Probably removable
 
@@ -61,7 +62,7 @@ public class DocGrabber extends AppCompatActivity {
 
 
         boolean notImported = false;
-        boolean notInvalid = false;
+        boolean notInvalid = true;
 
         //Just for returning messages
         String onSuccess = "File imported successfully";
@@ -72,8 +73,16 @@ public class DocGrabber extends AppCompatActivity {
         String onAlreadyImported = "Book was already imported";
         String onInvalid = "Not allowed to import file with that name";
 
-
         ContextWrapper c = new ContextWrapper(this);
+        File localBook = new File(c.getFilesDir(), assetsFileName);
+        try {
+            localBook.createNewFile();
+        }
+        catch (Exception e){
+
+        }
+
+
         File bsIn = new File(c.getFilesDir(), "assets.dat");
         try {
 
@@ -84,6 +93,7 @@ public class DocGrabber extends AppCompatActivity {
             String text = new String(buffer);
             String[] lines = text.split("\\r?\\n");
             notImported = true;
+
             for(int i =0; i<lines.length;i++) {
                 String bookInList = lines[i];
                 if(bookFileName.equals(bookInList)) {
@@ -102,9 +112,10 @@ public class DocGrabber extends AppCompatActivity {
             //This will trigger if reading from assets.dat occurs
             notImported = false; //Treating cases where book may or not be imported already as if it is already imported
         }
+
         //Check to ensure user cannot overwrite assets.dat
         if(bookFileName.equals(assetsFileName)) {
-            notInvalid = false;
+          //  notInvalid = false;
             editText.setText(onInvalid);
         }
         else {
@@ -197,14 +208,10 @@ public class DocGrabber extends AppCompatActivity {
     boolean writeFileToAppDirectory(File bookFile, String bookFileName, Context c, EditText editText) {
         try {
             File localBook = new File(c.getFilesDir(), bookFileName); //For creating bookFile in local directory
-            NoteFile notes = new NoteFile(bookFile); //This will create a file for notes in the local directory if it does not exist
-            TagFile tags = new TagFile(bookFile); //This will create a file for tags in the local directory if it does not exist
 
             //Reader and Writer to write book into directory
-            FileReader oldBookReadIn = new FileReader(bookFile);
-            FileWriter localBookWrite = new FileWriter(localBook);
 
-            char[] buffer = new char[1024];
+            int buffer = 0;
             int readRequestInt = 0;
 
             //Runtime permission check as required by API level
@@ -218,16 +225,24 @@ public class DocGrabber extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         readRequestInt);
-            } else {
-                //read from file in download folder and write into file in local directory
-                while (oldBookReadIn.read(buffer) != -1) {
-                    localBookWrite.write(buffer);
-                }
-                localBookWrite.write(buffer);
+            }
+            else {
+                FileInputStream inStream = new FileInputStream(bookFile);
+                FileOutputStream outStream = new FileOutputStream(localBook);
+                FileChannel inChannel = inStream.getChannel();
+                FileChannel outChannel = outStream.getChannel();
+                inChannel.transferTo(0, inChannel.size(), outChannel);
+                inStream.close();
+                outStream.close();
+                NoteFile notes = new NoteFile(localBook); //This will create a file for notes in the local directory if it does not exist
+                TagFile tags = new TagFile(localBook); //This will create a file for tags in the local directory if it does not exist
+
             }
 
-        } catch (Exception e) {
-        //Triggers if File object, FileReader, or FileWriter cannot be created
+        }
+
+        catch (Exception e) {
+            //Triggers if File object, FileReader, or FileWriter cannot be created
             editText.setText(e.getMessage());//Not currently visible to user, must dummy out fail message in onEnter to view
             return false;
         }
