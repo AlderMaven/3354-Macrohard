@@ -1,4 +1,11 @@
-
+/**
+ *Reads text from the appropriate file, splits it into pages, and displays one page at a time on screen
+ * Takes user input to flip between pages
+ *
+ * @author Brandon Barnes
+ * @author Saurabh Shah
+ * @version 1
+ */
 package com.example.bookshelftop;
 
 import android.content.ContextWrapper;
