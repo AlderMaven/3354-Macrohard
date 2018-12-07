@@ -36,7 +36,7 @@ public class BookButtonActivity extends FragmentActivity {
 
         //ss stuff-----------------------------------------
         text_holder = (TextView) findViewById(R.id.textHolder);  //write text to this
-        //back_button.setOnClickListener(goToPrevPage);
+        //back_button.setOnClickListener(goToPrevPage); //Causes Crash if uncommented right now
         text_holder.setOnClickListener(goToNextPage);
 
 
@@ -85,15 +85,15 @@ public class BookButtonActivity extends FragmentActivity {
 
     //for button
 
-    private View.OnClickListener goToPrevPage = new View.OnClickListener() {
-        public void onClick(View v) {
-            int prevPosition = (currentLoc - (500));
+    public void goToPrevPage(View view){
+
+            int prevPosition = (currentLoc - (1500));
             if (prevPosition > 0) {
                 currentLoc = make_and_viewPage(bReader, prevPosition, text_holder);
             }
         }
 
-    };
+
 
     int make_and_viewPage(RandomAccessFile bReader, int startLoc, TextView text_holder)  //makes the pages
     {
@@ -105,7 +105,7 @@ public class BookButtonActivity extends FragmentActivity {
 
         try {
             bReader.seek((long) (startLoc));
-            for (pos = startLoc*2; pos < startLoc*2 + 1000 && (pos/2) < bReader.length(); pos += 2)  //reads X characters
+            for (pos = startLoc*2; pos < startLoc*2 + 1500 && (pos/2) < bReader.length(); pos += 2)  //reads X characters
             {
                 temp[0] = bReader.readByte();
                 temp[1] = bReader.readByte();

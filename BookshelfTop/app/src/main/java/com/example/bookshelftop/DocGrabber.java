@@ -227,6 +227,7 @@ public class DocGrabber extends AppCompatActivity {
                         readRequestInt);
             }
             else {
+                //Copy the book to the local directory
                 FileInputStream inStream = new FileInputStream(bookFile);
                 FileOutputStream outStream = new FileOutputStream(localBook);
                 FileChannel inChannel = inStream.getChannel();
@@ -234,6 +235,7 @@ public class DocGrabber extends AppCompatActivity {
                 inChannel.transferTo(0, inChannel.size(), outChannel);
                 inStream.close();
                 outStream.close();
+                //Create the tag and note files
                 NoteFile notes = new NoteFile(localBook); //This will create a file for notes in the local directory if it does not exist
                 TagFile tags = new TagFile(localBook); //This will create a file for tags in the local directory if it does not exist
 
