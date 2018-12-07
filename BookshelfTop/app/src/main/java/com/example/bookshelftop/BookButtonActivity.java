@@ -21,38 +21,38 @@ public class BookButtonActivity extends FragmentActivity {
 
     ViewPager viewPager;
     TextView text_holder;
-    Button back_button;
+
     RandomAccessFile bReader;
-    int currentLoc = 500; //position in chars
+    int currentLoc = 0; //position of cursor in chars
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_button);
 
-        // Get the Intent that started this activity and extract the string
+        // Get the Intent that started this activity and extract the string for the filename
         Intent intent = getIntent();
         String message = intent.getStringExtra(BookShelfActivity.EXTRA_MESSAGE);
 
         //ss stuff-----------------------------------------
         text_holder = (TextView) findViewById(R.id.textHolder);  //write text to this
-        //back_button.setOnClickListener(goToPrevPage); //Causes Crash if uncommented right now
+
         text_holder.setOnClickListener(goToNextPage);
 
 
         ContextWrapper c = new ContextWrapper(this);
-        File bFile = new File(c.getFilesDir(), message);       //file with text (hopefully)
+        File bFile = new File(c.getFilesDir(), message);       //file with text
 
         try {
-            bReader = new RandomAccessFile(bFile, "rw");
+            bReader = new RandomAccessFile(bFile, "rw"); //This is used to read from the file, RandomAccessFile is used since it is seekable
         } catch (Exception e) {
             text_holder.setText("File not found");
         }
 
-        currentLoc = make_and_viewPage(bReader, currentLoc, text_holder);
+        currentLoc = make_and_viewPage(bReader, currentLoc, text_holder); //Make first page
 
 
-        /*
+        /* //dummied out
         // Capture the layout's ViewPager and view with swipes
         try {
             viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -70,7 +70,7 @@ public class BookButtonActivity extends FragmentActivity {
         */
     }
 
-    //for textview
+    //for advancing in book
     private View.OnClickListener goToNextPage = new View.OnClickListener() {
         public void onClick(View v) {
            try {
@@ -83,11 +83,10 @@ public class BookButtonActivity extends FragmentActivity {
         }
     };
 
-    //for button
-
+    //for back button
     public void goToPrevPage(View view){
 
-            int prevPosition = (currentLoc - (1500));
+            int prevPosition = (currentLoc - (1500)); //Go back 2*length of page
             if (prevPosition > 0) {
                 currentLoc = make_and_viewPage(bReader, prevPosition, text_holder);
             }
@@ -98,29 +97,31 @@ public class BookButtonActivity extends FragmentActivity {
     int make_and_viewPage(RandomAccessFile bReader, int startLoc, TextView text_holder)  //makes the pages
     {
         String pageText = "";
-        byte[] temp = new byte[2];
-        int position;
+        byte[] temp = new byte[2]; //Each character is 2 bytes so an array is used
+        int position; //Our return value
         int pos = 0;
         String tempString;
 
         try {
             bReader.seek((long) (startLoc));
-            for (pos = startLoc*2; pos < startLoc*2 + 1500 && (pos/2) < bReader.length(); pos += 2)  //reads X characters
+            for (pos = startLoc*2; pos < startLoc*2 + 1500 && (pos/2) < bReader.length(); pos += 2)  //reads 750 characters or until eof
             {
+                //Read the bytes from the file
                 temp[0] = bReader.readByte();
                 temp[1] = bReader.readByte();
 
-                tempString = new String(temp);
+                tempString = new String(temp); //create string out of bytes
 
-                pageText = pageText + tempString;
+                pageText = pageText + tempString; //add string composed of 1 char to the string to be printed to the screen
 
 
-                //stores latest position to be returned
+
             }
         } catch (Exception e) {
             text_holder.setText("IO exception");
         }
         position = pos/2;
+        //Display page
         text_holder.setText(pageText);
         return position;
     }
