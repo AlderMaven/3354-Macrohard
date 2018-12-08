@@ -34,7 +34,7 @@ public class BookShelf {
         else{
             Book n = root;
             while(n.getTitle() != inTitle){
-                int comp = n.getTitle().compareTo(inTitle);
+                int comp = n.getTitle().compareToIgnoreCase(inTitle);
 
                 if(comp<0){						//if nKey < key then keyNode goes to the right
                     if(n.getRight() == null){	//if the right is null and keyNode goes right we set n right to keyNode
@@ -84,8 +84,8 @@ public class BookShelf {
         ArrayList<Book> r = new ArrayList<Book>();
         if(n == null){return r;}															//if null return null
         else if(n.getDeleted()){return r;}													//if deleted add an asterisk
+        r.addAll(this.getAllBooks(n.getLeft()));
         r.add(n);
-        r.addAll(0,this.getAllBooks(n.getLeft()));
         r.addAll(this.getAllBooks(n.getRight()));
         return r;
     }
