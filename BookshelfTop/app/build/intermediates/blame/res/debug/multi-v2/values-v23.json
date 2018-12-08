@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\jmw160130\\Documents\\Github - Work\\BookshelfTop\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v23\\values-v23.xml",
+            "outputFile": "C:\\Users\\jmw160130\\Documents\\GitHub\\3354-Macrohard\\BookshelfTop\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v23\\values-v23.xml",
             "map": [
                 {
                     "source": "C:\\Users\\jmw160130\\.gradle\\caches\\transforms-1\\files-1.1\\cardview-v7-28.0.0.aar\\0ca6c9f762dcfbb1d4cb4e6d351c8c40\\res\\values-v23\\values-v23.xml",

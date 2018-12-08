@@ -2,13 +2,26 @@ package com.example.bookshelftop;
 
 import java.util.ArrayList;
 
+/**
+ * BookShelf - A manager for a binary tree of books, covers all methods that access books
+ * @author John Walsh
+ *
+ * @Book root - the root node of the binary tree, empty on default
+ */
+
 public class BookShelf {
     private Book root;
 
     public BookShelf(){root = new Book();}
     public BookShelf(Book r){root = r;}
 
-    //insert------------------------------------------------------------------------------------------------------------------------------------------------------
+    /**
+     * Insert - put a book into the bookshelf binary tree. Insertion is based on string value (Alphabetical)
+     *
+     * @param in - the book being inserted, this will always be set as a child of a book already in the bookshelf
+     *
+     * @return boolean canInsert, true if insertion was successful, false if insertion failed
+     */
     public boolean insert(Book in){
         boolean canInsert = false;
         String inTitle = in.getTitle();
@@ -40,7 +53,6 @@ public class BookShelf {
                 }
 
                 else{
-                    //Once I figure out how to best do the error message I will put it in here
                     return false;
                 }
             }
@@ -49,12 +61,25 @@ public class BookShelf {
         return canInsert;
     }
 
-    //insert------------------------------------------------------------------------------------------------------------------------------------------------------
+    /**
+     * returnBooks - runs through all books in the tree and returns an ArrayList of the books in order
+     * returnBooks calls the recursive method getAllBooks, which merges sub ArrayLists into one ArrayList containing all books
+     *
+     * @return an arraylist of all books in bookshelf in alphabetical order
+     */
     public ArrayList<Book> returnBooks(){
         ArrayList<Book> out = getAllBooks(root); //call recursive method
         return out;
     }
 
+    /**
+     * getAllBooks - recursive method to get all books in order, creates an arraylist of a book and its children then passes it up to the parent
+     * children to the left are in one list added at the begining of the array, then the parent is added, then the children to the right are added
+     *
+     * @param n - the book passed by a parent to be put in the arraylist, then it passes its children and recives their arraylists
+     *
+     * @return r - a sub ArrayList that gets added onto the ArrayList made above it, contains a sub array of books
+     */
     private ArrayList<Book> getAllBooks(Book n){
         ArrayList<Book> r = new ArrayList<Book>();
         if(n == null){return r;}															//if null return null
