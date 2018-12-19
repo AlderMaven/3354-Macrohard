@@ -26,8 +26,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 
-import com.example.bookshelftop.TagFile;
-import com.example.bookshelftop.NoteFile;
+import com.example.docgrabber.TagFile;
+import com.example.docgrabber.NoteFile;
 
 //Be sure to double check the permissions inside of the VM itself
 
